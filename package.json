@@ -1,0 +1,19 @@
+{
+    "name": "pirmas-server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon",
+        "production": "nodemon",
+        "tester": "nodemon",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Laurynas",
+    "license": "MIT",
+    "devDependencies": {
+        "nodemon": "^2.0.15"
+    }
+}
