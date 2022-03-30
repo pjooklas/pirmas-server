@@ -1,6 +1,5 @@
 import { server } from './lib/server.js';
 
-
 const app = {};
 
 app.init = () => {
