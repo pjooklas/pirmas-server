@@ -4,8 +4,8 @@ const config = {
     verbose: false,
     maxWorkers: '75%',
     collectCoverage: true,
-    // notify: true,
-    // notifyMode: 'always',
+    notify: true,
+    notifyMode: 'always',
 };
 
 export default config;
