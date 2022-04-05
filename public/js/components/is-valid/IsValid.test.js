@@ -88,60 +88,60 @@ describe('IsValid.email()', () => {
         expect(status).toBe('Negali buti maziau nei 6 ir daugiau nei 87 simboliu');
     })
     test('one to big (domain part)', () => {
-            const [err, status] = IsValid.email('very-long-firstname-and-lastname@very-long-website-name-for-real-true-story-bro2.com.xyz');
-            expect(err).toBe(true);
-            expect(status).toBe('Negali buti maziau nei 6 ir daugiau nei 87 simboliu');
-        })
-        // test('no @ symbol', () => {
-        //     const [err, status] = IsValid.email('usernamemail.com');
-        //     expect(err).toBe(true);
-        //     expect(status).toBe('Truksta @ simbolio');
-        // })
-        // test('no local part', () => {
-        //     const [err, status] = IsValid.email('@mail.com');
-        //     expect(err).toBe(true);
-        //     expect(status).toBe('Truksta dalies pries @ simboli');
-        // })
-        // test('no domain part', () => {
-        //     const [err, status] = IsValid.email('username@');
-        //     expect(err).toBe(true);
-        //     expect(status).toBe('Truksta dalies uz @ simbolio');
-        // })
-        // test('no space allowed', () => {
-        //     const [err, status] = IsValid.email('user name@mail.com');
-        //     expect(err).toBe(true);
-        //     expect(status).toBe('Tarpas yra negalimas');
-        // })
-        // test('domain part is not valid website url (1)', () => {
-        //     const [err, status] = IsValid.email('username@mailcom');
-        //     expect(err).toBe(true);
-        //     expect(status).toBe('Dalis uz @ simbolio nera validi tinklalapio nuoroda');
-        // })
-        // test('domain part is not valid website url (2)', () => {
-        //     const [err, status] = IsValid.email('username@.com');
-        //     expect(err).toBe(true);
-        //     expect(status).toBe('Dalis uz @ simbolio nera validi tinklalapio nuoroda');
-        // })
-        // test('domain part is not valid website url (3)', () => {
-        //     const [err, status] = IsValid.email('username@mail.');
-        //     expect(err).toBe(true);
-        //     expect(status).toBe('Dalis uz @ simbolio nera validi tinklalapio nuoroda');
-        // })
-        // test('domain part is not valid website url (4)', () => {
-        //     const [err, status] = IsValid.email('username@mail.com.');
-        //     expect(err).toBe(true);
-        //     expect(status).toBe('Dalis uz @ simbolio nera validi tinklalapio nuoroda');
-        // })
-        // test('domain part is not valid website url (5)', () => {
-        //     const [err, status] = IsValid.email('username@mail.c');
-        //     expect(err).toBe(true);
-        //     expect(status).toBe('Dalis uz @ simbolio nera validi tinklalapio nuoroda');
-        // })
-        // test('domain part is not valid website url (6)', () => {
-        //     const [err, status] = IsValid.email('user@name@mail.com');
-        //     expect(err).toBe(true);
-        //     expect(status).toBe('Gali buti tik vienas @ simbolis');
-        // })
+        const [err, status] = IsValid.email('very-long-firstname-and-lastname@very-long-website-name-for-real-true-story-bro2.com.xyz');
+        expect(err).toBe(true);
+        expect(status).toBe('Negali buti maziau nei 6 ir daugiau nei 87 simboliu');
+    })
+    test('no @ symbol', () => {
+        const [err, status] = IsValid.email('usernamemail.com');
+        expect(err).toBe(true);
+        expect(status).toBe('Truksta @ simbolio');
+    })
+    test('no local part', () => {
+        const [err, status] = IsValid.email('@mail.com');
+        expect(err).toBe(true);
+        expect(status).toBe('Truksta dalies pries @ simboli');
+    })
+    test('no domain part', () => {
+        const [err, status] = IsValid.email('username@');
+        expect(err).toBe(true);
+        expect(status).toBe('Truksta dalies uz @ simbolio');
+    })
+    test('no space allowed', () => {
+        const [err, status] = IsValid.email('user name@mail.com');
+        expect(err).toBe(true);
+        expect(status).toBe('Tarpas yra negalimas');
+    })
+    test('domain part is not valid website url (1)', () => {
+        const [err, status] = IsValid.email('username@mailcom');
+        expect(err).toBe(true);
+        expect(status).toBe('Dalis uz @ simbolio nera validi tinklalapio nuoroda');
+    })
+    test('domain part is not valid website url (2)', () => {
+        const [err, status] = IsValid.email('username@.com');
+        expect(err).toBe(true);
+        expect(status).toBe('Dalis uz @ simbolio nera validi tinklalapio nuoroda');
+    })
+    test('domain part is not valid website url (3)', () => {
+        const [err, status] = IsValid.email('username@mail.');
+        expect(err).toBe(true);
+        expect(status).toBe('Dalis uz @ simbolio nera validi tinklalapio nuoroda');
+    })
+    test('domain part is not valid website url (4)', () => {
+        const [err, status] = IsValid.email('username@mail.com.');
+        expect(err).toBe(true);
+        expect(status).toBe('Dalis uz @ simbolio nera validi tinklalapio nuoroda');
+    })
+    test('domain part is not valid website url (5)', () => {
+        const [err, status] = IsValid.email('username@mail.c');
+        expect(err).toBe(true);
+        expect(status).toBe('Dalis uz @ simbolio nera validi tinklalapio nuoroda');
+    })
+    test('domain part is not valid website url (6)', () => {
+        const [err, status] = IsValid.email('user@name@mail.com');
+        expect(err).toBe(true);
+        expect(status).toBe('Gali buti tik vienas @ simbolis');
+    })
 });
 
 describe('IsValid.password()', () => {
