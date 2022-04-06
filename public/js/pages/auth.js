@@ -31,7 +31,9 @@ submitDOM.addEventListener('click', (e) => {
         formData[id] = value;
     }
 
-    if (formData.password && formData.repass && formData.password !== formData.repass) {
+    if (formData.password &&
+        formData.repass &&
+        formData.password !== formData.repass) {
         errors.push('Nesutampa slaptazodziai');
     }
     errorsDOM.innerText = errors.join('\r\n');
@@ -46,10 +48,7 @@ submitDOM.addEventListener('click', (e) => {
                 console.log(data);
             }
         };
-        xhttp.open("GET", "/api", true);
-        xhttp.send();
-
-        console.log('SIUNCIAME I SERVERI:', formData);
+        xhttp.open("POST", "/api", true);
+        xhttp.send(JSON.stringify(formData));
     }
-
 })
