@@ -21,11 +21,11 @@ class PageLogin extends PageTemplate {
                                 <div class="form-errors"></div>
                                 <div class="form-row">
                                     <label for="email">Email</label>
-                                    <input id="email" data-validation="email" type="text" placeholder="Type email" value="chuck@norris.com" required>
+                                    <input id="email" data-validation="email" type="text" placeholder="Type email" value="chuck@norris.com" required autocomplete="username">
                                 </div>
                                 <div class="form-row">
                                     <label for="password">Password</label>
-                                    <input id="password" data-validation="password" type="password" placeholder="Type password" value="chuckchuckchuck" required>
+                                    <input id="password" data-validation="password" type="password" placeholder="Type password" value="chuckchuckchuck" required autocomplete="current-password">
                                 </div>
                                 <div class="form-row">
                                     <button type="submit" class="btn">Log in</button>

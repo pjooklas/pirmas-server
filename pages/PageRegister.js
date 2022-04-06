@@ -21,7 +21,7 @@ class PageRegister extends PageTemplate {
                                 <div class="form-errors"></div>
                                 <div class="form-row">
                                     <label for="username">Username</label>
-                                    <input id="username" data-validation="username" type="text" placeholder="Type username" required value="Chuck">
+                                    <input id="username" data-validation="username" type="text" placeholder="Type username" required value="Chuck" autocomplete="username">
                                 </div>
                                 <div class="form-row">
                                     <label for="email">Email</label>
@@ -29,11 +29,11 @@ class PageRegister extends PageTemplate {
                                 </div>
                                 <div class="form-row">
                                     <label for="password">Password</label>
-                                    <input id="password" data-validation="password" type="password" placeholder="Type password" required value="chuckchuckchuck">
+                                    <input id="password" data-validation="password" type="password" placeholder="Type password" required value="chuckchuckchuck" autocomplete="new-password">
                                 </div>
                                 <div class="form-row">
                                     <label for="repass">Repeat password</label>
-                                    <input id="repass" data-validation="password" type="password" placeholder="Type password" required value="chuckchuckchuck2">
+                                    <input id="repass" data-validation="password" type="password" placeholder="Type password" required value="chuckchuckchuck2" autocomplete="new-password">
                                 </div>
                                 <div class="form-row">
                                     <button type="submit" class="btn">Create account</button>
