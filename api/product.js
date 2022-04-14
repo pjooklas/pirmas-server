@@ -51,10 +51,32 @@ handler._method.post = async(data, callback) => {
         })
     }
 
+    // 2) Nuskaitome kokie failai yra .data/products folderyje
+    // const [productsListError, productsList] = await file.list('products');
+
+    // if (productsListError) {
+    //     return callback(500, {
+    //         status: 'Error',
+    //         msg: 'Ivyko klaida bandant sukurti produkta',
+    //     })
+    // }
+    // console.log(productsList);
+
+    // 2) sukuriame [produktas].json ir ji irasome 
+    const [productCreateError] = await file.create('products', (product.name + '.json').toLowerCase().replaceAll(' ', '-'), product)
+    if (productCreateError) {
+        return callback(400, {
+            status: 'Error',
+            msg: 'Klaida bandant sukurti produkta',
+        })
+    }
+
     return callback(200, {
         status: 'Success',
         msg: 'Produktas sukurta sekmingai',
     })
+
+
 }
 
 /**
