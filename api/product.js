@@ -1,4 +1,5 @@
 import { file } from "../lib/file.js";
+import { utils } from "../lib/utils.js";
 
 const handler = {};
 
@@ -80,28 +81,93 @@ handler._method.post = async(data, callback) => {
 }
 
 /**
- * Vartotojo informacijos gavimas
+ * Produkto informacijos gavimas
  */
 handler._method.get = async(data, callback) => {
     const url = data.trimmedPath;
+    const productName = url.split('/')[2];
 
+    let [err, content] = await file.read('products', productName + '.json');
+    if (err) {
+        return callback(200, {
+            status: 'Error',
+            msg: 'Nepavyko rasti norimo produkto',
+        })
+    }
 
-
+    content = utils.parseJSONtoObject(content);
+    if (!content) {
+        return callback(200, {
+            status: 'Error',
+            msg: 'Nepavyko apdoroti produkto duomenu',
+        })
+    }
 
 
     return callback(200, {
         status: 'Success',
         msg: 'Visa produkto informacija sekmingai gauta',
+        content: content
     })
 }
 
 /**
- * Vartotojo informacijos atnaujinimas
+ * Produkto informacijos atnaujinimas
  */
 handler._method.put = async(data, callback) => {
     const url = data.trimmedPath;
+    const productName = url.split('/')[2];
+
+    const { price, inStock } = data.payload;
+    let updatedValues = 0;
+    let newProductData = {};
+
+    if (price) {
+        newProductData = {...newProductData, price };
+        updatedValues++;
+    }
+
+    if (inStock) {
+        newProductData = {...newProductData, inStock };
+        updatedValues++;
+    }
+
+    if (!updatedValues) {
+        return callback(200, {
+            status: 'Error',
+            msg: 'Objekte nerasta informacijos, kuria butu leidziama atnaujinti, todel niekas nebuvo atnaujinta',
+        })
+    }
+
+    const [readErr, readMsg] = await file.read('products', productName + '.json');
+    if (readErr) {
+        return callback(500, {
+            status: 'Error',
+            msg: 'Nepavyko gauti produkto informacijos, kuria bandoma atnaujinti',
+        })
+    }
+
+    const productObj = utils.parseJSONtoObject(readMsg);
+    if (!productObj) {
+        return callback(500, {
+            status: 'Error',
+            msg: 'Ivyko klaida, bandant nuskaityti produkto informacija',
+        })
+    }
 
 
+    const updatedProductData = {
+        ...productObj,
+        ...newProductData,
+    }
+
+    const [updateErr] = await file.update('products', productName + '.json', updatedProductData);
+    if (updateErr) {
+        return callback(500, {
+            status: 'Error',
+            msg: 'Nepavyko atnaujinti produkto informacijos',
+        })
+    }
 
     return callback(200, {
         status: 'Success',
