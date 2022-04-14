@@ -180,8 +180,15 @@ handler._method.put = async(data, callback) => {
  */
 handler._method.delete = async(data, callback) => {
     const url = data.trimmedPath;
+    const productName = url.split('/')[2];
 
-
+    const [deleteErr] = await file.delete('products', productName + '.json');
+    if (deleteErr) {
+        return callback(500, {
+            status: 'Error',
+            msg: 'Nepavyko istrinti produkto',
+        })
+    }
 
     return callback(200, {
         status: 'Success',
