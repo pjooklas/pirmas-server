@@ -68,6 +68,57 @@ class IsValid {
         }
         return [false, 'OK'];
     }
+
+    static title(text) {
+        const minSize = 8;
+        const maxSize = 100;
+        if (typeof text !== 'string' ||
+            text === '') {
+            return [true, 'Title turi buti ne tuscias tekstas'];
+        }
+        if (text.length < minSize ||
+            text.length > maxSize) {
+            return [true, `Title negali buti maziau nei ${minSize} ir daugiau nei ${maxSize} simboliu`];
+        }
+        return [false, 'OK'];
+    }
+
+    static slug(text) {
+        const minSize = 8;
+        const maxSize = 100;
+        const allowed = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        if (typeof text !== 'string' ||
+            text === '') {
+            return [true, 'Slug turi buti ne tuscias tekstas'];
+        }
+        if (text.length < minSize ||
+            text.length > maxSize) {
+            return [true, `Slug negali buti maziau nei ${minSize} ir daugiau nei ${maxSize} simboliu`];
+        }
+        if (text.includes(' ')) {
+            return [true, 'Slug negali tureti tarpu'];
+        }
+        for (const letter of text) {
+            if (!allowed.includes(letter)) {
+                return [true, `"Slug" gali buti sudarytas tik is raidziu ir skaiciu ("${letter}" nera leistinas)`];
+            }
+        }
+        return [false, 'OK'];
+    }
+
+    static content(text) {
+        const minSize = 8;
+        const maxSize = 100;
+        if (typeof text !== 'string' ||
+            text === '') {
+            return [true, 'Content turi buti ne tuscias tekstas'];
+        }
+        if (text.length < minSize ||
+            text.length > maxSize) {
+            return [true, `Content negali buti maziau nei ${minSize} ir daugiau nei ${maxSize} simboliu`];
+        }
+        return [false, 'OK'];
+    }
 }
 
 export { IsValid }

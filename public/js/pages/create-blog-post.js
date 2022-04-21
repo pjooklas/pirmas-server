@@ -2,7 +2,7 @@ import { IsValid } from '../components/is-valid/IsValid.js';
 
 const formDOM = document.querySelector('.form');
 const errorsDOM = formDOM.querySelector('.form-errors');
-const allInputsDOM = formDOM.querySelectorAll('input');
+const allInputsDOM = formDOM.querySelectorAll('input, textarea');
 const submitDOM = formDOM.querySelector('button');
 
 submitDOM.addEventListener('click', (e) => {
