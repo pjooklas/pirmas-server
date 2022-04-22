@@ -86,7 +86,7 @@ class IsValid {
     static slug(text) {
         const minSize = 8;
         const maxSize = 100;
-        const allowed = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const allowed = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-';
         if (typeof text !== 'string' ||
             text === '') {
             return [true, 'Slug turi buti ne tuscias tekstas'];
@@ -108,7 +108,7 @@ class IsValid {
 
     static content(text) {
         const minSize = 8;
-        const maxSize = 100;
+        const maxSize = 2000;
         if (typeof text !== 'string' ||
             text === '') {
             return [true, 'Content turi buti ne tuscias tekstas'];
