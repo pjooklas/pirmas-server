@@ -1,5 +1,4 @@
 import { PageTemplate } from "../lib/PageTemplate.js";
-import { file } from '../lib/file.js';
 
 class PageBlogPost extends PageTemplate {
     /**
@@ -10,17 +9,6 @@ class PageBlogPost extends PageTemplate {
     constructor(data) {
         super(data);
         this.pageCSSfileName = 'blog-post';
-    }
-
-    async getBlogPostData() {
-        const postSlug = this.data.trimmedPath.split('/')[1].trim();
-        try {
-            const fileContent = await file.read('/data/blog-posts', postSlug + '.json');
-            const contentObj = utils.parseJSONtoObject(fileContent);
-            return contentObj;
-        } catch (error) {
-            return false;
-        }
     }
 
     badPostHTML() {
@@ -39,21 +27,25 @@ class PageBlogPost extends PageTemplate {
     }
 
     isValidPost(post) {
-        if (typeof post !== 'object'
-            || Array.isArray(post)
-            || post === null) {
+        if (typeof post !== 'object' ||
+            Array.isArray(post) ||
+            post === null) {
             return false;
         }
         return true;
     }
 
-    async mainHTML() {
-        const postData = await this.getBlogPostData();
-        if (this.isValidPost(postData)) {
-            return this.correctPostHTML(postData);
+    mainHTML() {
+        if (false) {
+            return this.correctPostHTML();
         } else {
             return this.badPostHTML();
         }
+        // if (this.isValidPost(postData)) {
+        //     return this.correctPostHTML(postData);
+        // } else {
+        //     return this.badPostHTML();
+        // }
     }
 }
 
