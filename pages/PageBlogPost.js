@@ -1,3 +1,5 @@
+import { file } from "../lib/file.js";
+import { utils } from "../lib/utils.js";
 import { PageTemplate } from "../lib/PageTemplate.js";
 
 class PageBlogPost extends PageTemplate {
@@ -11,11 +13,17 @@ class PageBlogPost extends PageTemplate {
         this.pageCSSfileName = 'blog-post';
     }
 
-    getPostData() {
-        return {};
+    async getPostData() {
+        const postas = await file.read('blog', this.data.trimmedPath.split('/')[1] + '.json');
+        const blogPostas = utils.parseJSONtoObject(postas[1]);
+        const author = await file.read('accounts', blogPostas.author + '.json');
+        const authorName = utils.parseJSONtoObject(author[1]);
+        blogPostas.name = authorName.username;
+        return blogPostas;
     }
 
     isValidPost() {
+        //ar ne tusti stringai, ar file readai ir parsai gerai irase
         return true;
     }
 
@@ -30,12 +38,12 @@ class PageBlogPost extends PageTemplate {
         return `<section class="container blog-inner">
                     <h1 class="row title">${post.title}</h1>
                     <p class="row">${post.content}</p>
-                    <footer class="row">Author</footer>
+                    <footer class="row">${post.name}</footer>
                 </section>`;
     }
 
-    mainHTML() {
-        const postData = this.getPostData();
+    async mainHTML() {
+        const postData = await this.getPostData();
         if (this.isValidPost(postData)) {
             return this.correctPostHTML(postData);
         } else {
