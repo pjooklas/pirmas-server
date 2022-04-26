@@ -11,6 +11,14 @@ class PageBlogPost extends PageTemplate {
         this.pageCSSfileName = 'blog-post';
     }
 
+    getPostData() {
+        return {};
+    }
+
+    isValidPost() {
+        return true;
+    }
+
     badPostHTML() {
         return `<section class="container blog-inner">
                     <h1 class="row title">500</h1>
@@ -26,26 +34,13 @@ class PageBlogPost extends PageTemplate {
                 </section>`;
     }
 
-    isValidPost(post) {
-        if (typeof post !== 'object' ||
-            Array.isArray(post) ||
-            post === null) {
-            return false;
-        }
-        return true;
-    }
-
     mainHTML() {
-        if (false) {
-            return this.correctPostHTML();
+        const postData = this.getPostData();
+        if (this.isValidPost(postData)) {
+            return this.correctPostHTML(postData);
         } else {
             return this.badPostHTML();
         }
-        // if (this.isValidPost(postData)) {
-        //     return this.correctPostHTML(postData);
-        // } else {
-        //     return this.badPostHTML();
-        // }
     }
 }
 
