@@ -1,6 +1,6 @@
 import { file } from "../lib/file.js";
-import { utils } from "../lib/utils.js";
 import { PageTemplate } from "../lib/PageTemplate.js";
+import { utils } from "../lib/utils.js";
 
 class PageBlogPost extends PageTemplate {
     /**
@@ -14,16 +14,45 @@ class PageBlogPost extends PageTemplate {
     }
 
     async getPostData() {
-        const postas = await file.read('blog', this.data.trimmedPath.split('/')[1] + '.json');
-        const blogPostas = utils.parseJSONtoObject(postas[1]);
-        const author = await file.read('accounts', blogPostas.author + '.json');
-        const authorName = utils.parseJSONtoObject(author[1]);
-        blogPostas.name = authorName.username;
-        return blogPostas;
+        const routeParts = this.data.trimmedPath.split('/');
+        if (routeParts.length !== 2) {
+            return {};
+        }
+
+        const [readErr, readContent] = await file.read('blog', routeParts[1] + '.json');
+        if (readErr) {
+            return {};
+        }
+
+        const postObj = utils.parseJSONtoObject(readContent);
+        if (!postObj) {
+            return {};
+        }
+
+        const [authReadErr, authReadContent] = await file.read('accounts', postObj.author + '.json');
+        if (authReadErr) {
+            postObj.authorName = 'AnonyMouse';
+        }
+
+        const authorObj = utils.parseJSONtoObject(authReadContent);
+        postObj.authorName = authorObj ? authorObj.username : 'AnonyMouse';
+
+        return postObj;
     }
 
-    isValidPost() {
-        //ar ne tusti stringai, ar file readai ir parsai gerai irase
+    isValidPost(post) {
+        if (typeof post !== 'object' ||
+            post === null ||
+            Array.isArray(post) ||
+            typeof post.title !== 'string' ||
+            post.title === '' ||
+            typeof post.content !== 'string' ||
+            post.content === '' ||
+            typeof post.authorName !== 'string' ||
+            post.authorName === '') {
+            return false;
+        }
+
         return true;
     }
 
@@ -38,7 +67,7 @@ class PageBlogPost extends PageTemplate {
         return `<section class="container blog-inner">
                     <h1 class="row title">${post.title}</h1>
                     <p class="row">${post.content}</p>
-                    <footer class="row">${post.name}</footer>
+                    <footer class="row">${post.authorName}</footer>
                 </section>`;
     }
 
