@@ -79,6 +79,18 @@ handler._method.post = async(data, callback) => {
         })
     }
 
+    const updatedUser = {...data.user };
+    delete updatedUser.isLoggedIn;
+    updatedUser.posts.push(post.slug);
+    const [updateError] = await file.update('accounts', data.user.email + '.json', updatedUser);
+
+    if (updateError) {
+        return callback(200, {
+            status: 'Error',
+            msg: 'Klaida bandant atnaujinti vartotojo duomenis',
+        })
+    }
+
     return callback(200, {
         status: 'Success',
         msg: 'Blog post sukurtas sekmingai',
@@ -87,6 +99,8 @@ handler._method.post = async(data, callback) => {
             href: '/blog',
         },
     })
+
+
 }
 
 /**
