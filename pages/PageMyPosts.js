@@ -47,6 +47,10 @@ class PageMyPosts extends PageTemplate {
 
         for (const post of data) {
             HTML += `<div class="post">
+                        <div class="post-edit">
+                            <a href="/post-edit"><i class="icon fa fa-edit"></i></a>
+                            <a href="#"><i class="icon fa fa-trash"></i></a>       
+                        </div>                        
                         <h2 class="post-title">${post.title}</h2>
                         <div class="post-description">${this.shortenText(post.content)}</div>
                         <a href="/blog/${post.slug}" class="read-more">Read more<i class="icon fa fa-angle-right"></i></a>

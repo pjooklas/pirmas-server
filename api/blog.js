@@ -136,6 +136,34 @@ handler._method.delete = async(data, callback) => {
     const url = data.trimmedPath;
     const blogSlug = url.split('/')[2];
 
+    if (!data.user.posts.includes(blogSlug)) {
+        return callback(400, {
+            status: 'Error',
+            msg: 'Vartotojas neturi tokio straipsnio, todel negalejo buti istrinta',
+        })
+    }
+
+    const [deleteError] = await file.delete('blog', blogSlug + '.json');
+    if (deleteError) {
+        return callback(500, {
+            status: 'Error',
+            msg: 'Sistemai nepavyko istrinti posto',
+        })
+    }
+
+    const updatedUser = {...data.user };
+    delete updatedUser.isLoggedIn;
+    updatedUser.posts = updatedUser.posts.filter(post => post !== blogSlug);
+
+    const [updateError] = await file.update('accounts', data.user.email + '.json', updatedUser);
+
+    if (updateError) {
+        return callback(500, {
+            status: 'Error',
+            msg: 'Klaida bandant atnaujinti vartotojo duomenis',
+        })
+    }
+
     return callback(200, {
         status: 'Success',
         msg: 'Blog post sekmingai istrinta is sistemos',

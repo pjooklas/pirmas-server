@@ -27,6 +27,12 @@
     word-break: break-word;
 }
 
+.post-edit {
+    float: right;
+    padding: 10px;
+    font-size: 1.2rem;
+}
+
 .blog-list>.list>.post:hover {
     box-shadow: 0 8px 20px #0004;
 }
